@@ -18,17 +18,6 @@ db.settings({
   timestampsInSnapshots: true
 });
 
-function handleResponse(response) {
-  console.log(response);
-  if (response.ok) {
-    return response.json();
-  } else {
-    let errors = new Error(response.statusText);
-    errors.response = response;
-    throw errors;
-  }
-}
-
 export function setMusic(music) {
   return {
     type: SET_MUSIC,
@@ -36,12 +25,25 @@ export function setMusic(music) {
   };
 }
 
+export function addMusic(response) {
+  return {
+    type: ADD_MUSIC,
+    response
+  };
+}
+
 export function saveMusic(data) {
   return dispatch => {
-    const userRef = db.collection('collector').add({
-      data
-    });
-    return userRef;
+    db.collection('collector')
+      .doc()
+      .set(data)
+      .then(function() {
+        console.log('Document successfully written!');
+        dispatch(addMusic({ status: 'added' }));
+      })
+      .catch(function(error) {
+        console.error('Error writing document: ', error);
+      });
   };
 }
 

@@ -6,7 +6,9 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
+  Button,
+  FlatList
 } from 'react-native';
 import { WebBrowser } from 'expo';
 import { connect } from 'react-redux';
@@ -14,12 +16,11 @@ import PropTypes from 'prop-types';
 import { fetchMusic } from '../actions';
 
 import { MonoText } from '../components/StyledText';
-import { FlatList } from 'react-native-gesture-handler';
 
 class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { music: '' };
+    this.state = { music: {} };
   }
   static navigationOptions = {
     header: null
@@ -30,6 +31,7 @@ class HomeScreen extends React.Component {
   }
 
   render() {
+    const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
         <ScrollView
@@ -54,12 +56,17 @@ class HomeScreen extends React.Component {
               renderItem={({ item }) => <Text>{item.name}</Text>}
             />
           </View>
-          <View>
-            {this.props.music &&
-              this.props.music.map(item => {
-                <Text>{item.name}</Text>;
-                console.log('ITEMS', item.name);
-              })}
+          <View style={styles.buttonSet}>
+            <Button
+              large
+              icon={{ name: 'book', type: 'font-awesome' }}
+              title="Add Music"
+              style={{ paddingBottom: 10 }}
+              onPress={() => {
+                //Alert.alert('You tapped the button!');
+                navigate('Add', { name: 'Jane' });
+              }}
+            />
           </View>
         </ScrollView>
 

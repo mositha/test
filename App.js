@@ -2,26 +2,11 @@ import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider, connect } from 'react-redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './rootReducer';
-
-// import * as firebase from 'firebase';
-// import 'firebase/firestore';
-
-// // Initialize Firebase
-// const firebaseConfig = {
-//   apiKey: 'AIzaSyCaHkSQGdyvtyTEK-Ys2AjpKuhDu0rxegw',
-//   authDomain: 'mycollctor.firebaseapp.com',
-//   databaseURL: 'https://mycollctor.firebaseio.com',
-//   projectId: 'mycollctor',
-//   storageBucket: 'mycollctor.appspot.com',
-//   messagingSenderId: '198939433139'
-// };
-
-// firebase.initializeApp(firebaseConfig);
 
 const mapStateToProps = state => {
   console.log(state);
@@ -34,7 +19,6 @@ class AppScreen extends React.Component {
     this.state = {
       isLoadingComplete: false
     };
-    // console.log('firebase', firebase);
   }
   state = {
     isLoadingComplete: false
@@ -85,15 +69,6 @@ class AppScreen extends React.Component {
 
   _handleFinishLoading = () => {
     this.setState({ isLoadingComplete: true });
-    // console.log('firestore', firebase.firestore);
-    // const db = firebase.firestore();
-    // db.settings({
-    //   timestampsInSnapshots: true
-    // });
-    // const userRef = db.collection('collector').add({
-    //   name: 'Katatonia',
-    //   albumsCount: 15
-    // });
   };
 }
 
